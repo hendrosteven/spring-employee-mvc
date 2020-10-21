@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import com.demo.dto.ErrorMessageDto;
@@ -28,9 +29,15 @@ public class KaryawanController {
 
     @Autowired
     private DepartemenRepo depRepo;
+
+    @Autowired
+    private HttpSession session;
     
     @GetMapping("/input")
     public String input(Model model){
+        if(session.getAttribute("CURRENT_USER") == null){
+            return "redirect:/login";
+        } 
         model.addAttribute("karyawanForm", new KaryawanDto());
         model.addAttribute("listOfDepartemen", depRepo.findAll());
         return "input";
@@ -38,7 +45,10 @@ public class KaryawanController {
 
     @PostMapping("/save")
     public String save(@Valid KaryawanDto karyawanForm, BindingResult resultErrors, Model model){
-        
+        if(session.getAttribute("CURRENT_USER") == null){
+            return "redirect:/login";
+        } 
+
         if(!resultErrors.hasErrors()){
             Karyawan karyawan = new Karyawan();
             karyawan.setNip(karyawanForm.getNip());
@@ -63,13 +73,20 @@ public class KaryawanController {
 
     @GetMapping("/remove/{id}")
     public String remove(@PathVariable("id") int id){
+        if(session.getAttribute("CURRENT_USER") == null){
+            return "redirect:/login";
+        } 
         repo.deleteById(id);
         return "redirect:/";
+        
     }
 
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") int id, Model model){
+        if(session.getAttribute("CURRENT_USER") == null){
+            return "redirect:/login";
+        } 
         Karyawan karyawan = repo.findById(id).get();
         KaryawanDto dto = new KaryawanDto();
         dto.setId(karyawan.getId());
@@ -85,6 +102,9 @@ public class KaryawanController {
 
     @PostMapping("/update")
     public String update(@Valid KaryawanDto karyawanForm, BindingResult resultErrors, RedirectAttributes redirectAttributes){
+        if(session.getAttribute("CURRENT_USER") == null){
+            return "redirect:/login";
+        } 
         if(!resultErrors.hasErrors()){
             Karyawan karyawan = repo.findById(karyawanForm.getId()).get();
             karyawan.setNip(karyawanForm.getNip());
