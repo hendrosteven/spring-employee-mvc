@@ -20,7 +20,7 @@
                         <th>Last Name</th>
                         <th>Email</th>
                         <th>Phone</th>
-                        <th>Address</th>
+                        <th>Departemen</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -31,7 +31,7 @@
                         <td th:text="${karyawan.lastName}">Testing</td>
                         <td th:text="${karyawan.emailAddress}">testing@domain.com</td>
                         <td th:text="${karyawan.phoneNumber}">1234567890</td>
-                        <td th:text="${karyawan.address}">Jakarta</td>
+                        <td th:text="${karyawan.departemen.name}">Jakarta</td>
                         <td>
                             <a th:href="@{/karyawan/remove/{id}/(id=${karyawan.id})}" class="btn btn-danger">
                                 <i class="fas fa-trash-alt"></i></a>

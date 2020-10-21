@@ -28,18 +28,20 @@ public class KaryawanDto {
     @Email(message="Invalid email address format")
     private String emailAddress;
 
+    private int departemenId;
 
     public KaryawanDto() {
 
     }
 
-    public KaryawanDto(String nip, String firstName, String lastName, String address, String phoneNumber, String email){
+    public KaryawanDto(String nip, String firstName, String lastName, String address, String phoneNumber, String email, int departemenId){
         this.nip = nip;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.emailAddress = email;
+        this.departemenId = departemenId;
     }
 
     
@@ -98,6 +100,14 @@ public class KaryawanDto {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getDepartemenId() {
+        return departemenId;
+    }
+
+    public void setDepartemenId(int departemenId) {
+        this.departemenId = departemenId;
     }
 
     

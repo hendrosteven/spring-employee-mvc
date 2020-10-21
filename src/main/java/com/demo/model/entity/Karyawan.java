@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -32,6 +33,9 @@ public class Karyawan {
 
     @Column(length=200, nullable= true, unique=true)
     private String emailAddress;
+
+    @ManyToOne
+    private Departemen departemen;
 
     public Karyawan() {
 
@@ -100,6 +104,14 @@ public class Karyawan {
 
     public void setNip(String nip) {
         this.nip = nip;
+    }
+
+    public Departemen getDepartemen() {
+        return departemen;
+    }
+
+    public void setDepartemen(Departemen departemen) {
+        this.departemen = departemen;
     }
 
     
