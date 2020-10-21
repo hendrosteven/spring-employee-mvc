@@ -3,6 +3,7 @@ package com.demo.controller;
 import javax.servlet.http.HttpSession;
 
 import com.demo.dto.LoginDto;
+import com.demo.helpers.MD5Generator;
 import com.demo.model.entity.User;
 import com.demo.model.repository.UserRepo;
 
@@ -33,10 +34,15 @@ public class UserController {
     public String doLogin(LoginDto login, RedirectAttributes redirectAttributes) {
         User user = repo.findByEmail(login.getEmail());
         if(user!=null){
-            if(user.getPassword().equals(login.getPassword())){
-                session.setAttribute("CURRENT_USER", user.getEmail());
-                return "redirect:/";
-            }
+            try{
+                if(user.getPassword().equals(MD5Generator.generate(login.getPassword()))){
+                    session.setAttribute("CURRENT_USER", user.getEmail());
+                    return "redirect:/";
+                }
+            }catch(Exception ex){
+                redirectAttributes.addFlashAttribute("ERROR", ex.getMessage());
+                return "redirect:/login";
+            }           
         }
         redirectAttributes.addFlashAttribute("ERROR", "Login failed");
         return "redirect:/login";
