@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>SpringBoot MVC</title>
+        <link rel="stylesheet" href="/webjars/bootstrap/4.5.3/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/webjars/font-awesome/5.15.1/css/all.min.css">
+        <link rel="stylesheet" th:src="@{/css/mystyle.css}">
+    </head>
+    <body>
+
+      <div th:replace="fragments/header::header"></div>
+        <div class="container">
+            <table class="table"> 
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Address</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="karyawan : ${listOfKaryawan}">
+                        <td th:text="${karyawan.id}">1</td>
+                        <td th:text="${karyawan.firstName}">Testing</td>
+                        <td th:text="${karyawan.lastName}">Testing</td>
+                        <td th:text="${karyawan.emailAddress}">testing@domain.com</td>
+                        <td th:text="${karyawan.phoneNumber}">1234567890</td>
+                        <td th:text="${karyawan.address}">Jakarta</td>
+                        <td>
+                            <a th:href="@{/karyawan/remove/{id}/(id=${karyawan.id})}" class="btn btn-danger">
+                                <i class="fas fa-trash-alt"></i></a>
+                            <a th:href="@{/karyawan/edit/{id}/(id=${karyawan.id})}" class="btn btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+      <div th:replace="fragments/footer::footer"></div>
+    </body>
+</html>
